@@ -1,0 +1,25 @@
+{
+  "name": "Browser Operation Logger",
+  "version": "1.0.0",
+  "manifest_version": 3,
+  "description": "右クリックから記録開始・停止を行い、ChatGPT APIにより自然言語の手順に変換するサンプル拡張",
+  "permissions": [
+    "contextMenus",
+    "scripting",
+    "activeTab",
+    "storage",
+    "tabs"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  }
+}

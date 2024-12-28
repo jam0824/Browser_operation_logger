@@ -1,0 +1,33 @@
+<!-- popup.html -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>API結果表示</title>
+    <style>
+      body {
+        min-width: 600px;
+        margin: 0;
+        padding: 0.5em;
+        font-family: sans-serif;
+      }
+      #responseContainer {
+        white-space: pre-wrap; /* 改行を保持したまま表示 */
+        border: 1px solid #ccc;
+        padding: 0.5em;
+        margin-bottom: 1em;
+        background: #f9f9f9;
+      }
+      button {
+        padding: 0.5em;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>操作手順</h2>
+    <div id="responseContainer">結果がここに表示されます</div>
+    <button id="copyButton">コピーする</button>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
