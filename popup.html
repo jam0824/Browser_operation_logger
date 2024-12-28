@@ -24,6 +24,13 @@
       .section {
         margin-bottom: 1em;
       }
+      .prompt-area {
+        margin-top: 1em;
+      }
+      textarea {
+        width: 100%;
+        box-sizing: border-box;
+      }
     </style>
   </head>
   <body>
@@ -44,6 +51,14 @@
       <div id="responseContainer">結果がここに表示されます</div>
       <button id="copyButton">コピーする</button>
     </div>
+
+    <!-- ここから追加: プロンプトを設定するエリア（「コピーする」ボタンより下） -->
+    <div class="section prompt-area">
+      <label for="promptInput">プロンプトを編集:</label><br />
+      <textarea id="promptInput" rows="5"></textarea>
+      <button id="savePromptButton">プロンプトを保存</button>
+    </div>
+    <!-- ここまで追加 -->
 
     <script src="popup.js"></script>
   </body>

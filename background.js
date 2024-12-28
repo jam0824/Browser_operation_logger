@@ -69,13 +69,16 @@ function stopLogging(tab) {
     console.log("[background.js] Raw operation logs:", operationLogs);
 
     // 保存された設定値を取得
-    chrome.storage.local.get(["useAI", "apiKey"], (data) => {
+    chrome.storage.local.get(["useAI", "apiKey", "promptSetting"], (data) => {
       const useAI = data.useAI === true;
       const apiKey = data.apiKey || "";
+      // プロンプト設定のデフォルト
+      const defaultPrompt = "以下はユーザーのブラウザ操作ログです。これを読みやすい手順に変換してください。ですますは不要です。まとめられる手順は上手にわかりやすくまとめてください。手順の理由を書けるときは〜するためにとつけてください。そして上に日本語で手順を記載、下に英語で手順を記載してください。";
+      const userPrompt = data.promptSetting || defaultPrompt;
 
       if (useAI && apiKey) {
         // AIを使う → ChatGPT API に送信して自然言語化
-        sendLogsToChatGPT(operationLogs, apiKey)
+        sendLogsToChatGPT(operationLogs, apiKey, userPrompt)
           .then((result) => {
             console.log("[background.js] ChatGPT変換後手順:", result);
             chrome.storage.local.set({ gptResult: result }, () => {
@@ -128,8 +131,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 /**
  * ChatGPT API呼び出し
  */
-async function sendLogsToChatGPT(logs, apiKey) {
-  const promptMessage = generatePromptFromLogs(logs);
+async function sendLogsToChatGPT(logs, apiKey, userPrompt) {
+  // プロンプト組み立て
+  const promptMessage = generatePromptFromLogs(logs, userPrompt);
   const apiUrl = "https://api.openai.com/v1/chat/completions";
 
   const response = await fetch(apiUrl, {
@@ -139,7 +143,7 @@ async function sendLogsToChatGPT(logs, apiKey) {
       Authorization: `Bearer ${apiKey}`,
     },
     body: JSON.stringify({
-      model: "gpt-4o-mini",
+      model: "gpt-4o-mini", // ここはご利用のモデルに合わせて変更
       messages: [
         {
           role: "system",
@@ -167,7 +171,8 @@ async function sendLogsToChatGPT(logs, apiKey) {
 /**
  * ログ配列からプロンプトを組み立て
  */
-function generatePromptFromLogs(logs) {
+function generatePromptFromLogs(logs, userPrompt) {
   const steps = logs.map((log, i) => `${i + 1}. ${log}`).join("\n");
-  return `以下はユーザーのブラウザ操作ログです。これを読みやすい手順に変換してください。ですますは不要です。まとめられる手順は上手にわかりやすくまとめてください。手順の理由を書けるときは〜するためにとつけてください。そして上に日本語で手順を記載、下に英語で手順を記載してください。:\n\n${steps}`;
+  // ユーザー設定のプロンプトの後ろにログをつなげる形にする
+  return `${userPrompt}:\n\n${steps}`;
 }
