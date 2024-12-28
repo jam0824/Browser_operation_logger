@@ -18,10 +18,13 @@ Chrome extentionです。ブラウザでの操作手順を記録し、AIで整�
 ## 準備
 1. 拡張機能の「Browser Operation Logger」をクリックするとポップアップが表示されます。
 2. AIを使う場合は `AIを使う`にチェックを入れ `OpenAI API Key`にopenaiから取得したAPI KEYを設定して保存してください。
+<img width="400" alt="スクリーンショット 2024-12-28 15 43 51" src="https://github.com/user-attachments/assets/bbeeb012-67fb-4305-98ce-bb97a74ec7b3" />
 
 AIを使うと操作ログがわかりやすく整理されます。また英語翻訳もされます。
 
 AIを使わない場合は操作ログがそのまま表示されます。
+<img width="300" alt="スクリーンショット 2024-12-28 15 44 11" src="https://github.com/user-attachments/assets/45c044b0-42e4-4b17-9aa8-203151c6bea2" />
+
 
 ## 使うとき
 3. 右クリック→「Browser Operation Logger」→「記録開始」
