@@ -68,17 +68,32 @@ function stopLogging(tab) {
     console.log("[background.js] content script response:", response);
     console.log("[background.js] Raw operation logs:", operationLogs);
 
-    // ここで ChatGPT API に送信して自然言語化
-    sendLogsToChatGPT(operationLogs)
-      .then((result) => {
-        console.log("[background.js] ChatGPT変換後手順:", result);
-        chrome.storage.local.set({ gptResult: result }, () => {
-          console.log("[background.js] GPT result stored in local storage.");
+    // 保存された設定値を取得
+    chrome.storage.local.get(["useAI", "apiKey"], (data) => {
+      const useAI = data.useAI === true;
+      const apiKey = data.apiKey || "";
+
+      if (useAI && apiKey) {
+        // AIを使う → ChatGPT API に送信して自然言語化
+        sendLogsToChatGPT(operationLogs, apiKey)
+          .then((result) => {
+            console.log("[background.js] ChatGPT変換後手順:", result);
+            chrome.storage.local.set({ gptResult: result }, () => {
+              console.log("[background.js] GPT result stored in local storage.");
+            });
+          })
+          .catch((error) => {
+            console.error("[background.js] ChatGPT API呼び出しエラー:", error);
+            chrome.storage.local.set({ gptResult: "ChatGPT APIエラーが発生しました。" });
+          });
+      } else {
+        // AIを使わない → これまでのログをナンバリングしてそのまま保存
+        const numberedLogs = operationLogs.map((log, i) => `${i + 1}. ${log}`).join("\n");
+        chrome.storage.local.set({ gptResult: numberedLogs }, () => {
+          console.log("[background.js] Numbered logs stored in local storage.");
         });
-      })
-      .catch((error) => {
-        console.error("[background.js] ChatGPT API呼び出しエラー:", error);
-      });
+      }
+    });
   });
 }
 
@@ -90,14 +105,6 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     const titleLog = `ページ遷移: 「${tab.title}」`;
     operationLogs.push(titleLog);
     console.log("[background.js] Page navigation logged:", titleLog);
-
-    // SPAなどでcontent.jsの再注入が必要ならばここで実行
-    // chrome.scripting.executeScript({
-    //   target: { tabId: tabId },
-    //   files: ["content.js"]
-    // }).then(() => {
-    //   console.log("[background.js] content.js was re-injected to tab", tabId);
-    // });
   }
 });
 
@@ -121,10 +128,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 /**
  * ChatGPT API呼び出し
  */
-async function sendLogsToChatGPT(logs) {
+async function sendLogsToChatGPT(logs, apiKey) {
   const promptMessage = generatePromptFromLogs(logs);
   const apiUrl = "https://api.openai.com/v1/chat/completions";
-  const apiKey = "YOUR_API_KEY";//openaiのapi keyを入れてください
 
   const response = await fetch(apiUrl, {
     method: "POST",

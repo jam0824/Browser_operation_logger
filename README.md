@@ -11,13 +11,21 @@ Chrome extentionです。ブラウザでの操作手順を記録し、AIで整�
 1. chromeで「拡張機能を管理」を選んでください。
 2. 「パッケージ化されていない拡張機能を読み込む」を選択
 3. cloneしたフォルダを選択
+
 これで「Browser Operation Logger」が拡張機能と右クリックメニューに現れます。
 
-AI機能を使うためには`background.js`の`apiKey`にopenaiから取得したあなたのAPI KEYを入力してください。
-
 # 使い方
-1. 右クリック→「Browser Operation Logger」→「記録開始」
-2. ブラウザ操作を実施
-3. 右クリック→「Browser Operation Logger」→「記録停止」
-4. apiからのレスポンスに10秒程度かかります。しばらく待ってから拡張機能の「Browser Operation Logger」をクリックすると整形された日本語/英語手順が表示されます
-5. 「コピーする」でクリップボードに結果をコピーすることができます。
+## 準備
+1. 拡張機能の「Browser Operation Logger」をクリックするとポップアップが表示されます。
+2. AIを使う場合は `AIを使う`にチェックを入れ `OpenAI API Key`にopenaiから取得したAPI KEYを設定して保存してください。
+
+AIを使うと操作ログがわかりやすく整理されます。また英語翻訳もされます。
+
+AIを使わない場合は操作ログがそのまま表示されます。
+
+## 使うとき
+3. 右クリック→「Browser Operation Logger」→「記録開始」
+4. ブラウザ操作を実施
+5. 右クリック→「Browser Operation Logger」→「記録停止」
+6. AIを使う場合はapiからのレスポンスに10秒程度かかります。しばらく待ってから拡張機能の「Browser Operation Logger」をクリックすると整形された日本語/英語手順が表示されます
+7. 「コピーする」でクリップボードに結果をコピーすることができます。

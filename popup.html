@@ -21,12 +21,29 @@
       button {
         padding: 0.5em;
       }
+      .section {
+        margin-bottom: 1em;
+      }
     </style>
   </head>
   <body>
     <h2>操作手順</h2>
-    <div id="responseContainer">結果がここに表示されます</div>
-    <button id="copyButton">コピーする</button>
+    
+    <div class="section">
+      <label>
+        <input type="checkbox" id="useAI" />
+        AIを使う
+      </label>
+      <br/>
+      <label for="apiKey">OpenAI API Key:</label>
+      <input type="text" id="apiKey" style="width: 300px;" />
+      <button id="saveSettings">保存</button>
+    </div>
+    
+    <div class="section">
+      <div id="responseContainer">結果がここに表示されます</div>
+      <button id="copyButton">コピーする</button>
+    </div>
 
     <script src="popup.js"></script>
   </body>
