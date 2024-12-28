@@ -3,7 +3,7 @@ Chrome extentionです。ブラウザでの操作手順を記録し、AIで整�
 
 [操作している動画](https://drive.google.com/file/d/1II_IDnRsYBhgqrkQLmq0lddRZscjJr3a/view?usp=sharing)
 
-<img width="627" alt="スクリーンショット 2024-12-28 10 36 59" src="https://github.com/user-attachments/assets/faa6fa9e-3975-4f2f-999f-97862c72e567" />
+<img width="400" alt="スクリーンショット 2024-12-28 10 36 59" src="https://github.com/user-attachments/assets/faa6fa9e-3975-4f2f-999f-97862c72e567" />
 
 
 # install
