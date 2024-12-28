@@ -1,8 +1,7 @@
 # 概要
 Chrome extentionです。ブラウザでの操作手順を記録し、AIで整形し日本語/英語で操作手順を返します。
-[動画](https://drive.google.com/file/d/1ya1lcdLDLeLw1HjfQzO7eyvla60rDRza/view?usp=sharing)
 
-<img width="400" alt="スクリーンショット 2024-12-28 10 17 31" src="https://github.com/user-attachments/assets/2b50fb86-78f1-4f47-bc84-058464fec020" />
+[操作している動画](https://drive.google.com/file/d/1II_IDnRsYBhgqrkQLmq0lddRZscjJr3a/view?usp=sharing)
 
 # install
 0. このリポジトリをcloneしてください。
