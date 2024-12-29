@@ -1,6 +1,3 @@
-// --------------------
-// content.js
-// --------------------
 (() => {
   console.log("[content.js] Loaded content script:", window.location.href);
   chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
@@ -23,20 +20,20 @@
     (event) => {
       const target = event.target;
       const tagName = target.tagName.toUpperCase();
-      let type = (tagName == "INPUT") ? target.type : "";
+      let type = tagName === "INPUT" ? target.type : "";
       let targetDescription = "";
       const text = (target.innerText || target.textContent || "").trim();
 
       if (text) {
-        if(type === ""){
+        if (type === "") {
           targetDescription = `'${text}' をクリック`;
-        }
-        else{
+        } else {
           targetDescription = `'${text}'(${type}) をクリック`;
         }
       } else if (target.id) {
-        if(type === "checkbox" || type === "radio"){}
-        else{
+        if (type === "checkbox" || type === "radio") {
+          // checkbox/radioの場合は特にクリックログを分けない例
+        } else {
           targetDescription = `'#${target.id}' をクリック`;
         }
       } else if (target.className) {
@@ -44,7 +41,8 @@
       } else {
         targetDescription = `要素(${target.tagName})をクリック`;
       }
-      if(targetDescription){
+
+      if (targetDescription) {
         chrome.runtime.sendMessage({ action: "addLog", log: targetDescription }, (res) => {
           console.log("[content.js] Element log sent:", targetDescription);
         });
@@ -55,23 +53,26 @@
 
   // -----------------------------------------------------------------------
   // 2) 入力イベントをcapturingフェーズで取得
-  //    - input, textarea, checkbox, radio などを対象にします。
+  //    - input, textarea, checkbox, radio, select などを対象にします。
   // -----------------------------------------------------------------------
   document.addEventListener(
     "change",
     (event) => {
       const target = event.target;
-      const tagName = target.tagName.toUpperCase();     
+      const tagName = target.tagName.toUpperCase();
       let targetDescription = "";
 
       if (tagName === "INPUT") {
-        const type = target.type; // "text", "checkbox", "radio", etc.
+        const type = target.type; // "text", "checkbox", "radio", "password"など
         if (type === "checkbox" || type === "radio") {
           // チェックの ON/OFF をログ
           const state = target.checked ? "ON" : "OFF";
           targetDescription = `チェックボックス(${target.name || target.id || target.className})を「${state}」に変更`;
+        } else if (type === "password") {
+          // パスワード入力欄の場合は実際の値ではなく固定メッセージをログ
+          targetDescription = `パスワードを入力しました (ID: ${target.id || "なし"})`;
         } else {
-          // テキスト系
+          // テキスト系 (password以外)
           const value = target.value;
           targetDescription = `「${value}」を入力 (ID: ${target.id || "なし"})`;
         }
@@ -85,10 +86,12 @@
         targetDescription = `プルダウンで「${selectedText}」(${value})を選択 (ID: ${target.id || "なし"})`;
       }
 
-      chrome.runtime.sendMessage({ action: "addLog", log: targetDescription }, (res) => {
-        console.log("[content.js] Input log sent:", targetDescription);
-      });
-      
+      // ログ内容があれば送信
+      if (targetDescription) {
+        chrome.runtime.sendMessage({ action: "addLog", log: targetDescription }, (res) => {
+          console.log("[content.js] Input log sent:", targetDescription);
+        });
+      }
     },
     true // capturingフェーズ
   );
