@@ -1,12 +1,16 @@
 # 概要
 Chrome extentionです。ブラウザでの操作手順を記録し、AIで整形し日本語/英語で操作手順を返します。
 バグ票のステップ作成や、WEBアプリの操作マニュアルなどを作る際に便利です。
+
 またプロンプトを変更することで、操作手順を自動テストに変換したりテスト項目に変換するなど、アイディア次第で操作ログを様々な形で利用ができます。
 
 [操作している動画](https://drive.google.com/file/d/1II_IDnRsYBhgqrkQLmq0lddRZscjJr3a/view?usp=sharing)
 
 <img width="400" alt="スクリーンショット 2024-12-28 10 36 59" src="https://github.com/user-attachments/assets/faa6fa9e-3975-4f2f-999f-97862c72e567" />
 
+<img width="400" alt="スクリーンショット 2024-12-29 19 51 22" src="https://github.com/user-attachments/assets/96f2139b-cf8c-4ee8-87d5-2f4bda8ae9db" />
+
+<img width="400" alt="スクリーンショット 2024-12-29 19 59 18" src="https://github.com/user-attachments/assets/2f6de9bd-f399-43df-a3dd-778ecb86f1a9" />
 
 # install
 0. このリポジトリをcloneしてください。
