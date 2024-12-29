@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
     saveSettingsButton.addEventListener("click", () => {
       const apiKey = apiKeyInput.value.trim();
       chrome.storage.local.set({ apiKey }, () => {
-        alert("API Keyを保存しました。");
+        alert("API Keyを保存しました。/API Key has been saved.");
       });
     });
   
@@ -63,10 +63,10 @@ document.addEventListener("DOMContentLoaded", () => {
       const textToCopy = responseContainer.textContent;
       navigator.clipboard.writeText(textToCopy).then(
         () => {
-          alert("コピーしました！");
+          alert("コピーしました！/Copied!");
         },
         (err) => {
-          alert("コピーできませんでした: " + err);
+          alert("コピーできませんでした/Failed to copy." + err);
         }
       );
     });
@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
     savePromptButton.addEventListener("click", () => {
       const promptSetting = promptInput.value.trim();
       chrome.storage.local.set({ promptSetting }, () => {
-        alert("プロンプトを保存しました。");
+        alert("プロンプトを保存しました。/Prompt has been saved.");
         console.log("[popup.js] プロンプトの設定を保存しました:", promptSetting);
       });
     });

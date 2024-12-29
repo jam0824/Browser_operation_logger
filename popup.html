@@ -3,7 +3,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>API結果表示</title>
+    <title>結果表示/Result</title>
     <style>
       body {
         min-width: 600px;
@@ -34,29 +34,29 @@
     </style>
   </head>
   <body>
-    <h2>操作手順</h2>
+    <h2>操作手順/Operation steps</h2>
     
     <div class="section">
       <label>
         <input type="checkbox" id="useAI" />
-        AIを使う
+        AIを使う/Use AI
       </label>
       <br/>
       <label for="apiKey">OpenAI API Key:</label>
       <input type="text" id="apiKey" style="width: 300px;" />
-      <button id="saveSettings">保存</button>
+      <button id="saveSettings">保存/Save</button>
     </div>
     
     <div class="section">
-      <div id="responseContainer">結果がここに表示されます</div>
-      <button id="copyButton">コピーする</button>
+      <div id="responseContainer">結果がここに表示されます/The results will be displayed here</div>
+      <button id="copyButton">コピーする/Copy</button>
     </div>
 
     <!-- ここから追加: プロンプトを設定するエリア（「コピーする」ボタンより下） -->
     <div class="section prompt-area">
-      <label for="promptInput">プロンプトを編集:</label><br />
+      <label for="promptInput">プロンプトを編集/Edit prompt</label><br />
       <textarea id="promptInput" rows="5"></textarea>
-      <button id="savePromptButton">プロンプトを保存</button>
+      <button id="savePromptButton">プロンプトを保存/Save prompt</button>
     </div>
     <!-- ここまで追加 -->
 
