@@ -105,7 +105,7 @@ function stopLogging(tab) {
  */
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   if (isRecording && changeInfo.status === "complete") {
-    const titleLog = `ページ遷移: 「${tab.title}」`;
+    const titleLog = `ページ遷移: 「${tab.title}」(${tab.url})`;
     operationLogs.push(titleLog);
     console.log("[background.js] Page navigation logged:", titleLog);
   }
