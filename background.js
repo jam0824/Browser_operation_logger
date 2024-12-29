@@ -21,12 +21,12 @@ function createContextMenus() {
   chrome.contextMenus.removeAll(() => {
     chrome.contextMenus.create({
       id: "start-logging",
-      title: "記録開始",
+      title: "記録開始/Start Recording",
       contexts: ["all"]
     });
     chrome.contextMenus.create({
       id: "stop-logging",
-      title: "記録停止",
+      title: "記録停止/Stop Recording",
       contexts: ["all"]
     });
   });

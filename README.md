@@ -1,5 +1,6 @@
 # 概要
 Chrome extentionです。ブラウザでの操作手順を記録し、AIで整形し日本語/英語で操作手順を返します。
+バグ票のステップ作成や、WEBアプリの操作マニュアルなどを作る際に便利です。
 
 [操作している動画](https://drive.google.com/file/d/1II_IDnRsYBhgqrkQLmq0lddRZscjJr3a/view?usp=sharing)
 
